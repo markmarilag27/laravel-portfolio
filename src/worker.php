@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Bref\LaravelBridge\Queue\LaravelSqsHandler;
 use Illuminate\Foundation\Application;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 /** @var Application $app */
-$app = require __DIR__ . '/bootstrap/app.php';
+$app = require __DIR__.'/bootstrap/app.php';
 
 /**
  * For Lumen, use:

@@ -18,7 +18,9 @@ mc policy set public client/${AWS_BUCKET:-local-bucket};
 
 artisan="
 composer install
+php artisan telescope:install
 php artisan migrate
+php artisan ide-helper:generate
 "
 
 docker compose up -d
