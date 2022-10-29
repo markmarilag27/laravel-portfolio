@@ -2,13 +2,41 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "run-p type-check build-only",
+        "test:unit": "vitest --environment jsdom",
+        "build-only": "vite build",
+        "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+    },
+    "dependencies": {
+        "@tanstack/vue-query": "^4.13.4",
+        "axios": "^0.27.2",
+        "vue": "^3.2.40",
+        "vue-router": "^4.1.5"
     },
     "devDependencies": {
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.6.0",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "vite": "^3.0.0"
+        "@rushstack/eslint-patch": "^1.2.0",
+        "@types/jsdom": "^20.0.0",
+        "@types/node": "^18.7.23",
+        "@vitejs/plugin-vue": "^3.1.0",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "@vue/eslint-config-typescript": "^11.0.2",
+        "@vue/test-utils": "^2.1.0",
+        "@vue/tsconfig": "^0.1.3",
+        "autoprefixer": "^10.4.12",
+        "date-fns": "^2.29.3",
+        "eslint": "^8.24.0",
+        "eslint-plugin-vue": "^9.5.1",
+        "jsdom": "^20.0.0",
+        "laravel-vite-plugin": "^0.6.1",
+        "lodash.clonedeep": "^4.5.0",
+        "lodash.isequal": "^4.5.0",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.17",
+        "prettier": "^2.7.1",
+        "tailwindcss": "^3.1.8",
+        "typescript": "^4.8.4",
+        "vite": "^3.0.0",
+        "vitest": "^0.23.4",
+        "vue-tsc": "^0.40.13"
     }
 }
