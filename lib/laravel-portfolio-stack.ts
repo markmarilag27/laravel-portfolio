@@ -69,7 +69,7 @@ export class LaravelPortfolioStack extends cdk.Stack {
     new s3Deploy.BucketDeployment(this, 'deploy-front-end-static-assets', {
       sources: [s3Deploy.Source.asset(`${srcPath}/public`)],
       destinationBucket: bucket,
-      destinationKeyPrefix: 'laravel-portfolio-static-assets',
+      destinationKeyPrefix: 'static-assets',
       distribution,
       distributionPaths: ['/*'],
       prune: true
@@ -91,7 +91,7 @@ export class LaravelPortfolioStack extends cdk.Stack {
     })
 
     const env = {
-      ASSET_URL: `https://${distribution.domainName}`,
+      ASSET_URL: `https://${distribution.domainName}/static-assets`,
       AWS_BUCKET: bucket.bucketName,
       DYNAMODB_CACHE_TABLE: dynamoTable.tableName,
       SQS_PREFIX: queue.queueUrl,
