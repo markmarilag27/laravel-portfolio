@@ -11,8 +11,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="canonical" href="{{ url()->current() }}">
-    <title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') }} -@stack('title')</title>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
+    @stack('head_style')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -20,11 +22,9 @@
     @vite(['resources/css/app.css', 'resources/vue/app.ts'])
 </head>
 
-<body>
+<body @if (request()->is('/')) class="bg-black py-16" @endif>
     <div id="app">
-        <div class="container mx-auto py-48 px-12 shadow rounded-sm bg-black text-white mt-64">
-            <hello-world msg="Hello Artisans!"></hello-world>
-        </div>
+        @yield('content')
     </div>
 </body>
 

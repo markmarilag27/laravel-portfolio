@@ -1,13 +1,14 @@
-import { createApp } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue";
+import './plugins/lazyload';
+import { createApp } from 'vue';
+import LogoSVG from '@/components/SVG/LogoSVG.vue';
 
-const targetElement = document.getElementById("app");
+const targetElement = document.getElementById('app');
 
 if (targetElement) {
-    const app = createApp({
-        components: {
-            HelloWorld,
-        },
-    });
-    app.mount(targetElement);
+  const app = createApp({
+    components: {
+      'logo-svg': LogoSVG,
+    },
+  });
+  app.mount(targetElement);
 }
