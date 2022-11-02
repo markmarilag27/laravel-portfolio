@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('pages.index'));
+Route::get('/', fn () => view('pages.home.index'));
+// SPA Routes
+Route::get('{any}', fn () => view('pages.dashboard.index'))->where('any', '(.*)');

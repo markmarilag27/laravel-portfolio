@@ -1,14 +1,14 @@
 <script setup lang="ts">
-defineProps({
-  width: {
-    type: String,
-    default: '100%',
-  },
-  height: {
-    type: String,
-    default: '100%',
-  },
-});
+  defineProps({
+    width: {
+      type: String,
+      default: '100%',
+    },
+    height: {
+      type: String,
+      default: '100%',
+    },
+  })
 </script>
 
 <template>

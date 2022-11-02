@@ -1,14 +1,12 @@
-import './plugins/lazyload';
-import { createApp } from 'vue';
-import LogoSVG from '@/components/SVG/LogoSVG.vue';
+import './plugins'
+import { createApp } from 'vue'
+import MainApp from './MainApp.vue'
+import router from './router'
 
-const targetElement = document.getElementById('app');
+const targetElement = document.getElementById('app')
 
 if (targetElement) {
-  const app = createApp({
-    components: {
-      'logo-svg': LogoSVG,
-    },
-  });
-  app.mount(targetElement);
+  const app = createApp(MainApp)
+  app.use(router)
+  app.mount(targetElement)
 }

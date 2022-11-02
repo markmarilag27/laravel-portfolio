@@ -23,9 +23,7 @@
 </head>
 
 <body @if (request()->is('/')) class="bg-black py-16" @endif>
-    <div id="app">
-        @yield('content')
-    </div>
+    @yield('content')
 </body>
 
 </html>
