@@ -1,3 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>Dashboard</template>
+<template>
+  <h1 class="text-2xl">Dashboard</h1>
+</template>

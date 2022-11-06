@@ -1,26 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
-const DashboardPage = () => import('@/pages/DashboardPage.vue')
-const NotFoundPage = () => import('@/pages/errors/NotFoundPage.vue')
-const LoginPage = () => import('@/pages/auth/LoginPage.vue')
-const ForgotPasswordPage = () => import('@/pages/auth/ForgotPasswordPage.vue')
-const EmailVerificationPage = () =>
-  import('@/pages/auth/EmailVerificationPage.vue')
 
 const router = createRouter({
   history: createWebHistory(),
+  strict: true,
   routes: [
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardPage,
+      component: () => import('@/pages/DashboardPage.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/feedbacks',
+      name: 'feedbacks',
+      component: () => import('@/pages/FeedbackPage.vue'),
       meta: {
         requiresAuth: true
       },
       children: [
         {
-          path: '/email-verification',
-          name: 'email_verification',
-          component: EmailVerificationPage,
+          path: '/:id',
+          name: 'feedbacks.show',
+          component: () => import('@/pages/FeedbackShowPage.vue'),
           meta: {
             requiresAuth: true
           }
@@ -30,15 +33,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginPage,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    {
-      path: '/forget-password',
-      name: 'forget_password',
-      component: ForgotPasswordPage,
+      component: () => import('@/pages/auth/LoginPage.vue'),
       meta: {
         requiresAuth: false
       }
@@ -46,7 +41,7 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'not_found',
-      component: NotFoundPage
+      component: () => import('@/pages/errors/NotFoundPage.vue')
     }
   ]
 })
