@@ -1,30 +1,39 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import laravel from 'laravel-vite-plugin'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   plugins: [
     laravel({
       input: ['resources/css/app.css', 'resources/vue/app.ts'],
-      refresh: ['resources/views/**'],
+      refresh: ['resources/views/**']
     }),
     vue({
       template: {
         transformAssetUrls: {
           base: null,
-          includeAbsolute: false,
-        },
-      },
+          includeAbsolute: false
+        }
+      }
     }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
+    })
   ],
   resolve: {
     alias: {
       '@': '/resources/vue',
       '~': '/resources/assets',
-      vue: 'vue/dist/vue.esm-bundler.js',
-    },
+      vue: 'vue/dist/vue.esm-bundler.js'
+    }
   },
   server: {
-    host: '0.0.0.0',
-  },
-});
+    host: '0.0.0.0'
+  }
+})

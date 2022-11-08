@@ -5,30 +5,12 @@ const router = createRouter({
   strict: true,
   routes: [
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/pages/DashboardPage.vue'),
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/pages/ProfilePage.vue'),
       meta: {
         requiresAuth: true
       }
-    },
-    {
-      path: '/feedbacks',
-      name: 'feedbacks',
-      component: () => import('@/pages/FeedbackPage.vue'),
-      meta: {
-        requiresAuth: true
-      },
-      children: [
-        {
-          path: '/:id',
-          name: 'feedbacks.show',
-          component: () => import('@/pages/FeedbackShowPage.vue'),
-          meta: {
-            requiresAuth: true
-          }
-        }
-      ]
     },
     {
       path: '/login',

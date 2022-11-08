@@ -4,12 +4,8 @@
   const state = reactive({
     routes: [
       {
-        to: 'dashboard',
-        text: 'Dashboard'
-      },
-      {
-        to: 'feedbacks',
-        text: 'Feedbacks'
+        to: 'profile',
+        text: 'Profile'
       }
     ]
   })
