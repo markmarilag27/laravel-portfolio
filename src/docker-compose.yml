@@ -53,6 +53,23 @@ services:
         networks:
             - default
 
+    # Database
+    mysql-testing:
+        image: mysql/mysql-server:8.0
+        container_name: mysql-testing
+        restart: unless-stopped
+        ports:
+            - 3307:3306
+        environment:
+            MYSQL_DATABASE: homestead_testing
+            MYSQL_USER: homestead
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: password
+        tmpfs:
+            - /var/lib/mysql:rw
+        networks:
+            - default
+
     # Dynamodb UI and DB
     dynamodb:
         image: instructure/dynamo-local-admin:latest

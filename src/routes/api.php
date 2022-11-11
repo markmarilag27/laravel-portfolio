@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('health', fn () => response()->json(['status' => 'ok']));
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+|
+*/
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::post('login', LoginController::class)->name('login');
+});
