@@ -4,8 +4,8 @@
   const state = reactive({
     routes: [
       {
-        to: 'profile',
-        text: 'Profile'
+        to: 'dashboard',
+        text: 'Dashboard'
       }
     ]
   })
@@ -15,10 +15,10 @@
 </script>
 
 <template>
-  <div class="flex justify-between bg-white border-b w-full px-3">
-    <a href="/" class="flex outline-none">
+  <div class="flex flex-col bg-white min-h-screen max-w-xs w-64">
+    <a href="/" class="block outline-none py-4 mb-4">
       <svg
-        class="max-h-8 my-auto"
+        class="max-h-12"
         width="100%"
         height="100%"
         viewBox="0 0 207 61"
@@ -37,24 +37,25 @@
       </svg>
     </a>
 
-    <div class="flex justify-end justify-items-center">
+    <div class="block">
       <RouterLink
-        class="text-gray-500 text-sm font-bold py-2 px-4 outline-none"
+        class="text-gray-500 text-sm py-2 px-4 w-full block outline-none"
         v-for="(route, index) in state.routes"
         :key="index"
         :to="{ name: route.to }"
-        exact-active-class="bg-slate-50"
+        exact-active-class="bg-slate-100"
       >
         {{ route.text }}
       </RouterLink>
-      <form @submit.prevent="handleSubmit">
-        <button
-          class="text-gray-500 text-sm font-bold py-2 px-4 outline-none"
-          type="submit"
-        >
-          Logout
-        </button>
-      </form>
     </div>
+
+    <form @submit.prevent="handleSubmit" class="mt-auto">
+      <button
+        class="text-gray-500 bg-gray-100 text-sm font-bold py-4 w-full outline-none"
+        type="submit"
+      >
+        Logout
+      </button>
+    </form>
   </div>
 </template>
