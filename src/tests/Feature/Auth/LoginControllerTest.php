@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -27,15 +28,20 @@ class LoginControllerTest extends TestCase
     {
         $credentials = [
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => $this->faker->password(8)
+            'password' => $this->faker->password(6).'1@'
         ];
 
-        /** @var User $user */
-        $user = User::factory()->create([
+        User::factory()->create([
             'email' => $credentials['email'],
             'password' => Hash::make($credentials['password'])
         ]);
 
-        $this->json('POST', $this->endpoint, $credentials);
+        $this->json('POST', $this->endpoint, $credentials)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->has('data')
+                    ->has('data.access_token')
+                    ->has('data.user')
+            );
     }
 }

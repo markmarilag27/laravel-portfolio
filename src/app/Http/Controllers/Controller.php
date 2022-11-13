@@ -34,4 +34,19 @@ class Controller extends BaseController
                 'Authorization' => 'Bearer ' . $accessToken
             ]);
     }
+
+    protected function responseWithErrors(string $message, array $errors, int $statusCode = Response::HTTP_BAD_REQUEST): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
+            'errors' => [...$errors]
+        ], $statusCode);
+    }
+
+    protected function responseWithErrorMessage(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'message' => $message
+        ], $statusCode);
+    }
 }
