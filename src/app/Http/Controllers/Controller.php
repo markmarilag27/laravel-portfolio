@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,24 +15,31 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    /**
-     * Response with access token, user data and authorization header
-     *
-     * @param string $accessToken
-     * @param Model|User $user
-     * @param int $statusCode
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function responseWithAccessToken(string $accessToken, User $user, int $statusCode = Response::HTTP_OK): \Illuminate\Http\JsonResponse
+    protected function responseWithAccessToken(string $accessToken, User $user, int $statusCode = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'data' => [
-                'access_token'  => $accessToken,
-                'user'          => new UserResource($user)
-            ]
+                'access_token' => $accessToken,
+                'user' => new UserResource($user),
+            ],
         ], $statusCode)
             ->withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken
+                'Authorization' => 'Bearer '.$accessToken,
             ]);
+    }
+
+    protected function responseWithErrors(string $message, array $errors, int $statusCode = Response::HTTP_BAD_REQUEST): JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
+            'errors' => [...$errors],
+        ], $statusCode);
+    }
+
+    protected function responseWithErrorMessage(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
+        ], $statusCode);
     }
 }
