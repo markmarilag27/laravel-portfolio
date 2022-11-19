@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.39.0.
+ * Generated for Laravel 9.40.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -17226,6 +17226,17 @@
         {
                         /** @var \Illuminate\Foundation\Vite $instance */
                         return $instance->manifestHash($buildDirectory);
+        }
+                    /**
+         * Determine if the HMR server is running.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isRunningHot()
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->isRunningHot();
         }
                     /**
          * Get the Vite tag content as a string of HTML.

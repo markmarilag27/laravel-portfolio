@@ -27,6 +27,7 @@ class LoginController extends Controller
         $user = User::query()->where('email', $payload['email'])->first();
 
         if (blank($user)) {
+            /** @var string $message */
             $message = trans('auth.failed');
 
             return $this->responseWithErrors(
@@ -36,7 +37,13 @@ class LoginController extends Controller
             );
         }
 
-        if (! Hash::check($payload['password'], $user->password)) {
+        /** @var string $password */
+        $password = $payload['password'];
+        /** @var string $currentUserPassword */
+        $currentUserPassword = $user->password;
+
+        if (! Hash::check($password, $currentUserPassword)) {
+            /** @var string $message */
             $message = trans('auth.password');
 
             return $this->responseWithErrors(
@@ -46,7 +53,8 @@ class LoginController extends Controller
             );
         }
 
-        $accessToken = $user->createToken($request->userAgent())->plainTextToken;
+        $userAgent = $request->userAgent() ?? 'unknown';
+        $accessToken = $user->createToken($userAgent)->plainTextToken;
 
         return $this->responseWithAccessToken($accessToken, $user);
     }
