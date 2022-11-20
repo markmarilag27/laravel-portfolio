@@ -6,7 +6,12 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["resources/vue/*"]
+      "@/*": ["resources/vue/*"],
+      "@api/*": ["resources/vue/api/*"],
+      "@components/*": ["resources/vue/components/*"],
+      "@pages/*": ["resources/vue/pages/*"],
+      "@router/*": ["resources/vue/router/*"],
+      "@utils/*": ["resources/vue/utils/*"]
     }
   }
 }

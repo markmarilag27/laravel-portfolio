@@ -1,23 +1,29 @@
 <script setup lang="ts">
-  import { reactive, ref } from 'vue'
+  import { reactive } from 'vue'
   import { BaseInput, BaseButton } from '@/components/Base'
   import { SVGAnimateSpin } from '@/components/SVG'
+  import type { UserLoginCredential } from '@/api/models'
+  import { authLogin } from '@/api/queries/auth.query'
 
-  export interface LoginData {
-    email: string | null
-    password: string | null
-    errors: string[]
-  }
+  const { isLoading, mutateAsync } = authLogin()
 
-  const form = reactive<LoginData>({
+  const form = reactive<UserLoginCredential>({
     email: null,
     password: null,
-    errors: []
+    errors: {}
   })
 
-  const isLoading = ref(false)
-
-  const handleSubmit = (): void => {}
+  const handleSubmit = (): void => {
+    form.errors = {}
+    mutateAsync(form)
+      .then(() => window.location.reload())
+      .catch((error) => {
+        const errors = error?.response?.data?.errors
+        if (errors) {
+          form.errors = errors
+        }
+      })
+  }
 </script>
 
 <template>
@@ -52,6 +58,8 @@
             v-model="form.email"
             type="email"
             required
+            :error="form.errors?.email"
+            v-model:clear="form.errors.email"
             placeholder="Email Address"
           />
         </div>
@@ -61,6 +69,8 @@
             v-model="form.password"
             type="password"
             required
+            :error="form.errors?.password"
+            v-model:clear="form.errors.password"
             placeholder="Password"
           />
         </div>

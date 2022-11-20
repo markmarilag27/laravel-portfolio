@@ -25,7 +25,6 @@ class LoginRequest extends FormRequest
                     ->mixedCase()
                     ->numbers()
                     ->symbols()
-                    ->uncompromised(),
             ],
         ];
     }

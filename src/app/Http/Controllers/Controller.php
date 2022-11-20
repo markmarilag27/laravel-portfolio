@@ -15,11 +15,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function responseWithAccessToken(string $accessToken, User $user, int $statusCode = Response::HTTP_OK): JsonResponse
+    protected function responseWithAuthorizationBearer(string $accessToken, User $user, int $statusCode = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'data' => [
-                'access_token' => $accessToken,
                 'user' => new UserResource($user),
             ],
         ], $statusCode)

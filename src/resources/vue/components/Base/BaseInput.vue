@@ -1,13 +1,13 @@
 <script setup lang="ts">
   export interface Props {
-    value?: string | number | null
+    modelValue?: string | number | null
     className?: string
     error?: string[]
   }
 
   export interface Emits {
-    (e: 'update', value: string): void
-    (e: 'clear', value: []): void
+    (e: 'update:modelValue', value: string): void
+    (e: 'update:clear', value: []): void
   }
 
   const props = defineProps<Props>()
@@ -15,18 +15,21 @@
 
   const handleValue = (e: Event): void => {
     const currentTarget = e.target as HTMLInputElement
-    emit('update', currentTarget.value)
+    emit('update:modelValue', currentTarget.value)
     if (typeof props.error !== 'undefined') {
-      emit('clear', [])
+      emit('update:clear', [])
     }
   }
 </script>
 
 <template>
   <input
-    :value="props.value"
+    :modelValue="props.modelValue"
     class="appearance-none w-full py-3 px-3 border-gray-600 rounded border-2"
-    :class="[props.className, props.error ? 'border-red-500' : '']"
+    :class="[
+      props.className,
+      props.error && props.error[0] ? 'border-red-500' : ''
+    ]"
     spellcheck="true"
     v-bind="$attrs"
     @input="handleValue"

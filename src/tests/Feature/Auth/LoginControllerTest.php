@@ -41,7 +41,6 @@ class LoginControllerTest extends TestCase
         $this->json('POST', $this->endpoint, $this->credentials)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) => $json->has('data')
-                    ->has('data.access_token')
                     ->has('data.user')
             );
     }
@@ -79,7 +78,6 @@ class LoginControllerTest extends TestCase
 
         $this->json('POST', $this->endpoint, $credentials)
             ->assertUnprocessable()
-            ->dd()
             ->assertJson(fn (AssertableJson $json) => $json->has('message')
                     ->has('errors')
             );

@@ -1,3 +1,4 @@
+import { COOKIE_AUTH_BEARER } from '@/utils/cookie-auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -22,10 +23,24 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      name: 'not_found',
+      name: 'error',
       component: () => import('@/pages/errors/NotFoundPage.vue')
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  if (to.meta.requiresAuth) {
+    if (!COOKIE_AUTH_BEARER) {
+      return { name: 'login' }
+    }
+  }
+
+  if (!to.meta.requiresAuth) {
+    if (COOKIE_AUTH_BEARER) {
+      return { name: 'dashboard' }
+    }
+  }
 })
 
 export default router

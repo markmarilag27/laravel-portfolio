@@ -46,7 +46,6 @@ class CurrentUserControllerTest extends TestCase
         $endpoint = action([CurrentUserController::class, 'logout']);
 
         $this->json('POST', $endpoint)
-            ->assertOk()
-            ->dd();
+            ->assertOk();
     }
 }

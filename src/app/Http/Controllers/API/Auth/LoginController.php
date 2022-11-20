@@ -56,6 +56,6 @@ class LoginController extends Controller
         $userAgent = $request->userAgent() ?? 'unknown';
         $accessToken = $user->createToken($userAgent)->plainTextToken;
 
-        return $this->responseWithAccessToken($accessToken, $user);
+        return $this->responseWithAuthorizationBearer($accessToken, $user);
     }
 }
